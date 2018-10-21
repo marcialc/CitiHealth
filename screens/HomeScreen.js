@@ -35,7 +35,7 @@ export default class HomeScreen extends React.Component {
 
   animate() {
     let progress = 0;
-    let percentage = 0.7;
+    let percentage = 0.6;
     this.setState({ progress });
     setTimeout(() => {
       this.setState({ indeterminate: false });
@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: '85%',
     borderColor: '#00004c',
+    backgroundColor: 'rgba(255,255,255,0.2)',
   },
 
   transactionsText:{

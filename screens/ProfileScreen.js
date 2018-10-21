@@ -16,7 +16,26 @@ export default class ProfileScreen extends React.Component {
           </View>
           <View style={styles.wrap}>
             <Text style={styles.email}> marcialandres@me.com </Text>
-            <Text style={styles.username}> UserName: MarcialC</Text>
+          </View>
+          <View style = {styles.info}>
+            <Text style={styles.key}> Username: </Text>
+            <Text style={{fontSize: 20, paddingLeft: 10,}}>MarcialC</Text>
+          </View>
+          <View style = {styles.info}>
+            <Text style={styles.key}> Password: </Text>
+            <Text style={{fontSize: 20, paddingLeft: 12,}}>*********</Text>
+          </View>
+          <View style = {styles.info}>
+            <Text style={styles.key}> Birthday: </Text>
+            <Text style={{fontSize: 20, paddingLeft: 20,}}>06/26/1995</Text>
+          </View>
+          <View style = {styles.info}>
+            <Text style={styles.key}> Career: </Text>
+            <Text style={{fontSize: 20, paddingLeft: 30,}}>Computer Science Student</Text>
+          </View>
+          <View style = {styles.info}>
+            <Text style={styles.key}> University: </Text>
+            <Text style={{fontSize: 20, paddingLeft: 11,}}>Florida International University</Text>
           </View>
           <View style={{paddingTop: 20}} />
           </ImageBackground>
@@ -65,17 +84,22 @@ const styles = StyleSheet.create({
   },
 
   email: {
-    paddingBottom: 15,
-    fontSize: 20,
+    paddingBottom: 25,
+    fontSize: 14,
     fontWeight: '200',
     textAlign: 'center',
   },
 
-  username: {
-    paddingTop: 5,
-    fontSize: 25,
-    textAlign: 'left',
+  info:{
+    paddingVertical: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  key: {
+    color: 'gray',
+    fontSize: 15,
     paddingLeft: 10,
-  }
+  },
 
 });
