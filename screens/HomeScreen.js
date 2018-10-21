@@ -47,7 +47,7 @@ export default class HomeScreen extends React.Component {
       console.log(this.state.transactions[i]);
     }
   }
-  
+
   animate() {
     let progress = 0;
     let percentage = 0.6;
@@ -98,7 +98,7 @@ export default class HomeScreen extends React.Component {
                 return <Text style={styles.transactionsText}>{transaction.transactionDescription} - ${transaction.transactionAmount}</Text>
               })}
             </View>
-            <View style={{paddingTop: 50}} />
+            <View style={{paddingBottom:160}}></View>
             </ImageBackground>
           </ScrollView>
     );
