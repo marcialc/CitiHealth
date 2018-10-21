@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   View, ImageBackground,
 } from 'react-native';
-import { WebBrowser } from 'expo';
 import * as Progress from 'react-native-progress';
 import { MonoText } from '../components/StyledText';
 
@@ -76,15 +75,19 @@ export default class HomeScreen extends React.Component {
             </View>
             <View style={styles.wrap}>
               <Text style={styles.progressText}> Balance </Text>
-              <Text style = {styles.balance}> {this.state.balance} $ </Text>
+              <View styles = {styles.balance}>
+                <Text style = {{fontSize: 40}}> {this.state.balance} $ </Text>
+              </View>
             </View>
             <View style = {styles.progress}>
               <Text style={styles.progressText}> Health 💰 </Text>
               <Progress.Bar
                 progress={this.state.progress}
                 indeterminate={this.state.indeterminate}
-                width={320}
+                width={340}
                 height={18}
+                borderRadius={8}
+                borderWidth={2}
                 color={this.state.setColor}
                 animationType={'timing'}
                 />
@@ -95,6 +98,7 @@ export default class HomeScreen extends React.Component {
                 return <Text style={styles.transactionsText}>{transaction.transactionDescription} - ${transaction.transactionAmount}</Text>
               })}
             </View>
+            <View style={{paddingTop: 50}} />
             </ImageBackground>
           </ScrollView>
     );
@@ -112,6 +116,7 @@ const styles = StyleSheet.create({
   },
 
   mainContainer: {
+    marginTop: 20,
     flex: 1,
     height: null,
     width: null,
@@ -124,6 +129,7 @@ const styles = StyleSheet.create({
   },
 
   getStartedText: {
+    paddingTop: 30,
     fontSize: 35,
     color: 'rgba(96,100,109, 10)',
     lineHeight: 40,
@@ -136,18 +142,17 @@ const styles = StyleSheet.create({
   },
 
   wrap: {
+    paddingTop: 40,
     alignItems: 'center',
   },
 
   balance: {
-    width: '50%',
+    width: '70%',
+    height: 50,
     borderRadius: 10,
     borderWidth: 3,
-    borderColor: '#000099',
-    borderBottomColor: '#00004c',
-    height: 55,
-    color: 'black',
-    fontSize: 40,
+    borderColor: 'white',
+    backgroundColor: 'black',
   },
 
   progressText: {
@@ -157,6 +162,7 @@ const styles = StyleSheet.create({
   },
 
   progress: {
+    paddingTop: 30,
     alignItems: 'center',
   },
 
@@ -175,7 +181,7 @@ const styles = StyleSheet.create({
   },
 
   transTitle: {
-    top: 250,
+    paddingTop: 40,
     textAlign: 'center',
     fontSize: 25,
     paddingBottom: 10,
