@@ -27,13 +27,28 @@ export default class HomeScreen extends React.Component {
      indeterminate: true,
      setColor: 'green',
      balance: '250,000.00',
+     transactions: [],
    };
   }
 
   componentDidMount() {
     this.animate();
+    fetch('https://citi-health-back.herokuapp.com/transactions')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        for (let i = 0; i < responseJson.creditCardAccountTransactions.length; i++) {
+          console.log(responseJson.creditCardAccountTransactions[i])
+          this.setState({transactions: [...this.state.transactions, responseJson.creditCardAccountTransactions[i]]})
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    for (let i = 0; i < this.state.transactions; i++) {
+      console.log(this.state.transactions[i]);
+    }
   }
-
+  
   animate() {
     let progress = 0;
     let percentage = 0.7;
@@ -76,30 +91,9 @@ export default class HomeScreen extends React.Component {
             </View>
             <View> <Text style={styles.transTitle}> RECENT TRANSACTIONS </Text> </View>
             <View style = {styles.transactions}>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
-              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              {this.state.transactions.map((transaction) => {
+                return <Text style={styles.transactionsText}>{transaction.transactionDescription} - ${transaction.transactionAmount}</Text>
+              })}
             </View>
             </ImageBackground>
           </ScrollView>
