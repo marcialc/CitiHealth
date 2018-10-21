@@ -6,83 +6,133 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View, ImageBackground,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import * as Progress from 'react-native-progress';
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
+
   static navigationOptions = {
     header: null,
   };
 
+  constructor(props) {
+   super(props);
+
+   this.state = {
+     percentage: 0,
+     progress: 0,
+     indeterminate: true,
+     setColor: 'green',
+     balance: '250,000.00',
+   };
+  }
+
+  componentDidMount() {
+    this.animate();
+  }
+
+  animate() {
+    let progress = 0;
+    let percentage = 0.7;
+    this.setState({ progress });
+    setTimeout(() => {
+      this.setState({ indeterminate: false });
+      setInterval(() => {
+        progress += 1;
+        if (progress > percentage) {
+          progress = percentage;
+        }
+
+        this.setState({ progress });
+      }, 500);
+    }, percentage * 1000);
+  }
+
+
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <ScrollView style={styles.mainContainer} contentContainerStyle={styles.contentContainer}>
+          <ImageBackground source={require('../assets/images/gradient_blue.png')} style={styles.background}>
           <View style={styles.getStartedContainer}>
             <Text style={styles.getStartedText}> DASHBOARD </Text>
             </View>
-            <View>
-            <Text style = {styles.balance}> 150.00 $ </Text>
+            <View style={styles.wrap}>
+              <Text style={styles.progressText}> Balance </Text>
+              <Text style = {styles.balance}> {this.state.balance} $ </Text>
             </View>
             <View style = {styles.progress}>
-              <Progress.Circle size={100} progress={0.5} borderWidth={2}/>
+              <Text style={styles.progressText}> Health 💰 </Text>
+              <Progress.Bar
+                progress={this.state.progress}
+                indeterminate={this.state.indeterminate}
+                width={320}
+                height={18}
+                color={this.state.setColor}
+                animationType={'timing'}
+                />
             </View>
-        </ScrollView>
-      </View>
+            <View> <Text style={styles.transTitle}> RECENT TRANSACTIONS </Text> </View>
+            <View style = {styles.transactions}>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+              <Text style={styles.transactionsText}> CHECKCARD 10/20 GA TECH PARKEON ATLANTA GA    -$5.00 </Text>
+            </View>
+            </ImageBackground>
+          </ScrollView>
     );
   }
-
-  // _maybeRenderDevelopmentModeWarning() {
-  //   if (__DEV__) {
-  //     const learnMoreButton = (
-  //       <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-  //         Learn more
-  //       </Text>
-  //     );
-  //
-  //     return (
-  //       <Text style={styles.developmentModeText}>
-  //         Development mode is enabled, your app will be slower but you can use useful development
-  //         tools. {learnMoreButton}
-  //       </Text>
-  //     );
-  //   } else {
-  //     return (
-  //       <Text style={styles.developmentModeText}>
-  //         You are not in development mode, your app will run at full speed.
-  //       </Text>
-  //     );
-  //   }
-  // }
-
-  // _handleLearnMorePress = () => {
-  //   WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  // };
-  //
-  // _handleHelpPress = () => {
-  //   WebBrowser.openBrowserAsync(
-  //     'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-  //   );
-  // };
 }
 
 const styles = StyleSheet.create({
-  container: {
+
+  background: {
+    width: '100%',
+    height: null,
+    width: '100%',
     flex: 1,
-    backgroundColor: '#fff',
+    alignItems: 'center',
+  },
+
+  mainContainer: {
+    flex: 1,
+    height: null,
+    width: null,
+    backgroundColor: 'transparent',
+    flexDirection: 'column',
   },
 
   contentContainer: {
-    paddingTop: 30,
+    alignItems: 'center',
   },
 
   getStartedText: {
-    fontSize: 25,
+    fontSize: 35,
     color: 'rgba(96,100,109, 10)',
-    lineHeight: 25,
+    lineHeight: 40,
     textAlign: 'center',
   },
 
@@ -91,87 +141,50 @@ const styles = StyleSheet.create({
     marginHorizontal: 50,
   },
 
+  wrap: {
+    alignItems: 'center',
+  },
+
   balance: {
-    textAlign: 'center',
-    left: 100,
-    top: 100,
     width: '50%',
-    height: 45,
     borderRadius: 10,
     borderWidth: 3,
     borderColor: '#000099',
     borderBottomColor: '#00004c',
+    height: 55,
     color: 'black',
+    fontSize: 40,
+  },
+
+  progressText: {
+    paddingBottom: 15,
     fontSize: 30,
+    fontWeight: 'bold',
   },
 
   progress: {
     alignItems: 'center',
-    top: 200,
   },
-  // welcomeContainer: {
-  //   alignItems: 'center',
-  //   marginTop: 10,
-  //   marginBottom: 20,
-  // },
-  // welcomeImage: {
-  //   width: 100,
-  //   height: 80,
-  //   resizeMode: 'contain',
-  //   marginTop: 3,
-  //   marginLeft: -10,
-  // },
 
-  // homeScreenFilename: {
-  //   marginVertical: 7,
-  // },
-  // codeHighlightText: {
-  //   color: 'rgba(96,100,109, 0.8)',
-  // },
+  transactions: {
+    alignItems: 'center',
+    borderWidth: 2,
+    borderRadius: 10,
+    width: '85%',
+    borderColor: '#00004c',
+  },
 
-  // codeHighlightContainer: {
-  //   backgroundColor: 'rgba(0,0,0,0.05)',
-  //   borderRadius: 3,
-  //   paddingHorizontal: 4,
-  // },
+  transactionsText:{
+    fontSize: 11,
+    paddingVertical: 10,
 
-  // tabBarInfoContainer: {
-  //   position: 'absolute',
-  //   bottom: 0,
-  //   left: 0,
-  //   right: 0,
-  //   ...Platform.select({
-  //     ios: {
-  //       shadowColor: 'black',
-  //       shadowOffset: { height: -3 },
-  //       shadowOpacity: 0.1,
-  //       shadowRadius: 3,
-  //     },
-  //     android: {
-  //       elevation: 20,
-  //     },
-  //   }),
-  //   alignItems: 'center',
-  //   backgroundColor: '#fbfbfb',
-  //   paddingVertical: 20,
-  // },
-  // tabBarInfoText: {
-  //   fontSize: 17,
-  //   color: 'rgba(96,100,109, 1)',
-  //   textAlign: 'center',
-  // },
-  // navigationFilename: {
-  //   marginTop: 5,
-  // },
-  // helpContainer: {
-  //   marginTop: 15,
-  //   alignItems: 'center',
-  // },
-  // helpLink: {
-  //   paddingVertical: 15,
-  // },
-  // helpLinkText: {
-  //   fontSize: 14,
-  //   color: '#2e78b7',
-  // },
+  },
+
+  transTitle: {
+    top: 250,
+    textAlign: 'center',
+    fontSize: 25,
+    paddingBottom: 10,
+    fontWeight: '400',
+  }
 });

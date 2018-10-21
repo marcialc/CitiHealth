@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text, TextInput, View, ImageBackground } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 
 export default class ProfileScreen extends React.Component {
@@ -9,17 +9,36 @@ export default class ProfileScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        
+      <ScrollView style={styles.mainContainer} contentContainerStyle={styles.contentContainer}>
+        <ImageBackground source={require('../assets/images/gradient_blue.png')} style={styles.background}>
+        <View style={styles.container}>
+          <TextInput></TextInput>
+        </View>
+        </ImageBackground>
       </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  
+  mainContainer: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
+    height: null,
+    width: null,
+    backgroundColor: 'transparent',
+  },
+
+
+  background: {
+    width: '100%',
+    height: null,
+    width: '100%',
+    flex: 1,
+    alignItems: 'center',
+  },
+
+  contentContainer: {
+    alignItems: 'center',
   },
 });
